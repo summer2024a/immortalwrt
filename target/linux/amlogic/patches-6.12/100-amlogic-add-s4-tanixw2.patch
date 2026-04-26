@@ -1,0 +1,1992 @@
+diff --git a/arch/arm64/boot/dts/amlogic/Makefile b/arch/arm64/boot/dts/amlogic/Makefile
+index 2fbda8419..1b7f070ce 100644
+--- a/arch/arm64/boot/dts/amlogic/Makefile
++++ b/arch/arm64/boot/dts/amlogic/Makefile
+@@ -79,6 +79,7 @@ dtb-$(CONFIG_ARCH_MESON) += meson-gxm-s912-libretech-pc.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-gxm-vega-s96.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-gxm-wetek-core2.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-s4-s805x2-aq222.dtb
++dtb-$(CONFIG_ARCH_MESON) += meson-s4-s905w2-tx3-mini-plus.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-sm1-a95xf3-air-gbit.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-sm1-a95xf3-air.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-sm1-bananapi-m2-pro.dtb
+diff --git a/arch/arm64/boot/dts/amlogic/meson-s4-s905w2-tx3-mini-plus.dts b/arch/arm64/boot/dts/amlogic/meson-s4-s905w2-tx3-mini-plus.dts
+new file mode 100755
+index 000000000..dc618cd77
+--- /dev/null
++++ b/arch/arm64/boot/dts/amlogic/meson-s4-s905w2-tx3-mini-plus.dts
+@@ -0,0 +1,1974 @@
++/dts-v1/;
++
++/ {
++	compatible = "tanixw2\0amlogic,ap201\0amlogic,s4";
++	interrupt-parent = <0x01>;
++	#address-cells = <0x02>;
++	#size-cells = <0x02>;
++	model = "Tanix W2";
++
++	cpus {
++		#address-cells = <0x02>;
++		#size-cells = <0x00>;
++
++		cpu0: cpu@0 {
++			device_type = "cpu";
++			compatible = "arm,cortex-a55\0arm,armv8";
++			reg = <0x00 0x00>;
++			enable-method = "psci";
++			cpu-idle-states = <&cpu_sleep_0 &system_sleep_0>;
++			dynamic-power-coefficient = <0xe6>;
++			#cooling-cells = <0x02>;
++		};
++
++		cpu@1 {
++			device_type = "cpu";
++			compatible = "arm,cortex-a55\0arm,armv8";
++			reg = <0x00 0x01>;
++			enable-method = "psci";
++			cpu-idle-states = <&cpu_sleep_0 &system_sleep_0>;
++			dynamic-power-coefficient = <0xe6>;
++			#cooling-cells = <0x02>;
++		};
++
++		cpu@2 {
++			device_type = "cpu";
++			compatible = "arm,cortex-a55\0arm,armv8";
++			reg = <0x00 0x02>;
++			enable-method = "psci";
++			cpu-idle-states = <&cpu_sleep_0 &system_sleep_0>;
++			dynamic-power-coefficient = <0xe6>;
++			#cooling-cells = <0x02>;
++		};
++
++		cpu@3 {
++			device_type = "cpu";
++			compatible = "arm,cortex-a55\0arm,armv8";
++			reg = <0x00 0x03>;
++			enable-method = "psci";
++			cpu-idle-states = <&cpu_sleep_0 &system_sleep_0>;
++			dynamic-power-coefficient = <0xe6>;
++			#cooling-cells = <0x02>;
++		};
++
++		idle-states {
++			entry-method = "arm,psci-0.2";
++
++			cpu_sleep_0: cpu-sleep-0 {
++				compatible = "arm,idle-state";
++				arm,psci-suspend-param = <0x10000>;
++				local-timer-stop;
++				entry-latency-us = <0xfa0>;
++				exit-latency-us = <0x1388>;
++				min-residency-us = <0x2710>;
++			};
++
++			system_sleep_0: system-sleep-0 {
++				compatible = "arm,idle-state";
++				arm,psci-suspend-param = <0x00>;
++				entry-latency-us = <0x3fffffff>;
++				exit-latency-us = <0x40000000>;
++				min-residency-us = <0xffffffff>;
++			};
++		};
++	};
++
++	gpu_opp_table {
++		compatible = "operating-points-v2";
++		phandle = <0x1e>;
++
++		opp-285 {
++			opp-hz = <0x00 0x1107a769>;
++			opp-microvolt = <0x47e>;
++		};
++
++		opp-400 {
++			opp-hz = <0x00 0x17d78400>;
++			opp-microvolt = <0x47e>;
++		};
++
++		opp-500 {
++			opp-hz = <0x00 0x1dcd6500>;
++			opp-microvolt = <0x47e>;
++		};
++
++		opp-666 {
++			opp-hz = <0x00 0x27bc86aa>;
++			opp-microvolt = <0x47e>;
++		};
++
++		opp-846 {
++			opp-hz = <0x00 0x326cef80>;
++			opp-microvolt = <0x47e>;
++		};
++	};
++
++	audio-controller-0 {
++		compatible = "amlogic,axg-tdm-iface";
++		#sound-dai-cells = <0x00>;
++		sound-name-prefix = "TDM_A";
++		clocks = <0x02 0x31 0x02 0x4f 0x02 0x56>;
++		clock-names = "mclk\0sclk\0lrclk";
++		assigned-clocks = <0x02 0x3b>;
++		assigned-clock-parents = <0x03 0x11>;
++	};
++
++	audio-controller-1 {
++		compatible = "amlogic,axg-tdm-iface";
++		#sound-dai-cells = <0x00>;
++		sound-name-prefix = "TDM_B";
++		clocks = <0x02 0x32 0x02 0x50 0x02 0x57>;
++		clock-names = "mclk\0sclk\0lrclk";
++		assigned-clocks = <0x02 0x3c>;
++		assigned-clock-parents = <0x03 0x11>;
++	};
++
++	audio-controller-2 {
++		compatible = "amlogic,axg-tdm-iface";
++		#sound-dai-cells = <0x00>;
++		sound-name-prefix = "TDM_C";
++		clocks = <0x02 0x33 0x02 0x51 0x02 0x58>;
++		clock-names = "mclk\0sclk\0lrclk";
++		assigned-clocks = <0x02 0x3d>;
++		assigned-clock-parents = <0x03 0x11>;
++	};
++
++	timer {
++		compatible = "arm,armv8-timer";
++		interrupts = <0x01 0x0d 0xff08 0x01 0x0e 0xff08 0x01 0x0b 0xff08 0x01 0x0a 0xff08>;
++	};
++
++	psci {
++		compatible = "arm,psci-1.0";
++		method = "smc";
++	};
++
++	xtal-clk {
++		compatible = "fixed-clock";
++		clock-frequency = <0x16e3600>;
++		clock-output-names = "xtal";
++		#clock-cells = <0x00>;
++		phandle = <0x0a>;
++	};
++
++	firmware {
++
++		secure-monitor {
++			compatible = "amlogic,meson-gxbb-sm";
++
++			power-controller {
++				compatible = "amlogic,meson-s4-pwrc";
++				#power-domain-cells = <0x01>;
++				phandle = <0x10>;
++			};
++		};
++	};
++
++	soc {
++		compatible = "simple-bus";
++		#address-cells = <0x02>;
++		#size-cells = <0x02>;
++		ranges;
++
++		interrupt-controller@fff01000 {
++			compatible = "arm,gic-400";
++			#interrupt-cells = <0x03>;
++			#address-cells = <0x00>;
++			interrupt-controller;
++			reg = <0x00 0xfff01000 0x00 0x1000 0x00 0xfff02000 0x00 0x2000 0x00 0xfff04000 0x00 0x2000 0x00 0xfff06000 0x00 0x2000>;
++			interrupts = <0x01 0x09 0xf04>;
++			phandle = <0x01>;
++		};
++
++		bus@fe000000 {
++			compatible = "simple-bus";
++			reg = <0x00 0xfe000000 0x00 0x480000>;
++			#address-cells = <0x02>;
++			#size-cells = <0x02>;
++			ranges = <0x00 0x00 0x00 0xfe000000 0x00 0x480000>;
++
++			bus@36000 {
++				compatible = "simple-bus";
++				#address-cells = <0x02>;
++				#size-cells = <0x02>;
++				ranges = <0x00 0x00 0x00 0x36000 0x00 0x2000>;
++
++				video-lut@48 {
++					compatible = "amlogic,canvas";
++					reg = <0x00 0x48 0x00 0x14>;
++					phandle = <0x1f>;
++				};
++			};
++
++			hdmi-tx@300000 {
++				compatible = "amlogic,meson-s4-dw-hdmi";
++				reg = <0x00 0x300000 0x00 0x10000>;
++				interrupts = <0x00 0xcc 0x01>;
++				resets = <0x04 0x10 0x04 0x16 0x04 0x1d>;
++				reset-names = "hdmitx_apb\0hdmitx\0hdmitx_phy";
++				clocks = <0x05 0x43 0x05 0xcb 0x05 0xd2>;
++				clock-names = "isfr\0iahb\0venci";
++				#address-cells = <0x01>;
++				#size-cells = <0x00>;
++				#sound-dai-cells = <0x00>;
++				status = "okay";
++				pinctrl-0 = <0x06 0x07>;
++				pinctrl-names = "default";
++
++				port@0 {
++					reg = <0x00>;
++
++					endpoint {
++						remote-endpoint = <0x08>;
++						phandle = <0x21>;
++					};
++				};
++
++				port@1 {
++					reg = <0x01>;
++
++					endpoint {
++						remote-endpoint = <0x09>;
++						phandle = <0x2c>;
++					};
++				};
++			};
++
++			clock-controller@0 {
++				compatible = "amlogic,s4-peripherals-clkc";
++				reg = <0x00 0x00 0x00 0x49c>;
++				clocks = <0x03 0x03 0x03 0x0d 0x03 0x05 0x03 0x07 0x03 0x09 0x03 0x0b 0x03 0x11 0x03 0x0f 0x03 0x19 0x03 0x1b 0x03 0x1d 0x03 0x1f 0x03 0x14 0x0a>;
++				clock-names = "fclk_div2\0fclk_div2p5\0fclk_div3\0fclk_div4\0fclk_div5\0fclk_div7\0hifi_pll\0gp0_pll\0mpll0\0mpll1\0mpll2\0mpll3\0hdmi_pll\0xtal";
++				#clock-cells = <0x01>;
++				phandle = <0x05>;
++			};
++
++			clock-controller@8000 {
++				compatible = "amlogic,s4-pll-clkc";
++				reg = <0x00 0x8000 0x00 0x1e8>;
++				clocks = <0x0a>;
++				clock-names = "xtal";
++				#clock-cells = <0x01>;
++				phandle = <0x03>;
++			};
++
++			watchdog@2100 {
++				compatible = "amlogic,s4-wdt\0amlogic,t7-wdt";
++				reg = <0x00 0x2100 0x00 0x10>;
++				clocks = <0x0a>;
++			};
++
++			pinctrl@4000 {
++				compatible = "amlogic,meson-s4-periphs-pinctrl";
++				#address-cells = <0x02>;
++				#size-cells = <0x02>;
++				ranges;
++				phandle = <0x0b>;
++
++				bank4000: bank@4000 {
++					reg = <0x00 0x4000 0x00 0x4c 0x00 0x40c0 0x00 0x220>;
++					reg-names = "mux\0gpio";
++					gpio-controller;
++					#gpio-cells = <0x02>;
++					gpio-ranges = <0x0b 0x00 0x00 0x52>;
++					phandle = <0x1a>;
++				};
++
++				remote-pin {
++
++					mux {
++						groups = "remote_in";
++						function = "remote_in";
++						bias-disable;
++					};
++				};
++
++				i2c0-pins1 {
++
++					mux {
++						groups = "i2c0_sda\0i2c0_scl";
++						function = "i2c0";
++						drive-strength-microamp = <0xbb8>;
++						bias-disable;
++					};
++				};
++
++				i2c1-pins1 {
++
++					mux {
++						groups = "i2c1_sda_c\0i2c1_scl_c";
++						function = "i2c1";
++						drive-strength-microamp = <0xbb8>;
++						bias-disable;
++					};
++				};
++
++				i2c1_pins2: i2c1-pins2 {
++
++					mux {
++						groups = "i2c1_sda_d\0i2c1_scl_d";
++						function = "i2c1";
++						drive-strength-microamp = <0xbb8>;
++						bias-disable;
++					};
++				};
++
++				i2c1-pins3 {
++
++					mux {
++						groups = "i2c1_sda_h\0i2c1_scl_h";
++						function = "i2c1";
++						drive-strength-microamp = <0xbb8>;
++						bias-disable;
++					};
++				};
++
++				i2c1-pins4 {
++
++					mux {
++						groups = "i2c1_sda_x\0i2c1_scl_x";
++						function = "i2c1";
++						drive-strength-microamp = <0xbb8>;
++						bias-disable;
++					};
++				};
++
++				i2c2-pins1 {
++
++					mux {
++						groups = "i2c2_sda_d\0i2c2_scl_d";
++						function = "i2c2";
++						drive-strength-microamp = <0xbb8>;
++						bias-disable;
++					};
++				};
++
++				i2c2-pins2 {
++
++					mux {
++						groups = "i2c2_sda_h8\0i2c2_scl_h9";
++						function = "i2c2";
++						drive-strength-microamp = <0xbb8>;
++						bias-disable;
++					};
++				};
++
++				i2c2-pins3 {
++
++					mux {
++						groups = "i2c2_sda_h0\0i2c2_scl_h1";
++						function = "i2c2";
++						drive-strength-microamp = <0xbb8>;
++						bias-disable;
++					};
++				};
++
++				i2c3-pins1 {
++
++					mux {
++						groups = "i2c3_sda_x\0i2c3_scl_x";
++						function = "i2c3";
++						drive-strength-microamp = <0xbb8>;
++						bias-disable;
++					};
++				};
++
++				i2c3-pins2 {
++
++					mux {
++						groups = "i2c3_sda_z\0i2c3_scl_z";
++						function = "i2c3";
++						drive-strength-microamp = <0xbb8>;
++						bias-disable;
++					};
++				};
++
++				i2c4-pins1 {
++
++					mux {
++						groups = "i2c4_sda_c\0i2c4_scl_c";
++						function = "i2c4";
++						drive-strength-microamp = <0xbb8>;
++						bias-disable;
++					};
++				};
++
++				i2c4-pins2 {
++
++					mux {
++						groups = "i2c4_sda_d\0i2c4_scl_d";
++						function = "i2c4";
++						drive-strength-microamp = <0xbb8>;
++						bias-disable;
++					};
++				};
++
++				i2c4-pins3 {
++
++					mux {
++						groups = "i2c4_sda_z\0i2c4_scl_z";
++						function = "i2c4";
++						drive-strength-microamp = <0xbb8>;
++						bias-disable;
++					};
++				};
++
++				nand-pins {
++
++					mux {
++						groups = "emmc_nand_d0\0emmc_nand_d1\0emmc_nand_d2\0emmc_nand_d3\0emmc_nand_d4\0emmc_nand_d5\0emmc_nand_d6\0emmc_nand_d7\0nand_ce0\0nand_ale\0nand_cle\0nand_wen_clk\0nand_ren_wr";
++						function = "nand";
++						input-enable;
++					};
++				};
++
++				pwm-a-pins1 {
++
++					mux {
++						groups = "pwm_a_d";
++						function = "pwm_a";
++					};
++				};
++
++				pwm-a-pins2 {
++
++					mux {
++						groups = "pwm_a_x";
++						function = "pwm_a";
++					};
++				};
++
++				pwm-b-pins1 {
++
++					mux {
++						groups = "pwm_b_d";
++						function = "pwm_b";
++					};
++				};
++
++				pwm-b-pins2 {
++
++					mux {
++						groups = "pwm_b_x";
++						function = "pwm_b";
++					};
++				};
++
++				pwm-c-pins1 {
++
++					mux {
++						groups = "pwm_c_d";
++						function = "pwm_c";
++					};
++				};
++
++				pwm-c-pins2 {
++
++					mux {
++						groups = "pwm_c_x";
++						function = "pwm_c";
++					};
++				};
++
++				pwm-d-pins1 {
++
++					mux {
++						groups = "pwm_d_d";
++						function = "pwm_d";
++					};
++				};
++
++				pwm-d-pins2 {
++
++					mux {
++						groups = "pwm_d_h";
++						function = "pwm_d";
++					};
++				};
++
++				pwm-e-pins1 {
++					phandle = <0x0e>;
++
++					mux {
++						groups = "pwm_e_x";
++						function = "pwm_e";
++					};
++				};
++
++				pwm-e-pins2 {
++
++					mux {
++						groups = "pwm_e_z";
++						function = "pwm_e";
++					};
++				};
++
++				pwm-f-pins1 {
++
++					mux {
++						groups = "pwm_f_x";
++						function = "pwm_f";
++					};
++				};
++
++				pwm-f-pins2 {
++
++					mux {
++						groups = "pwm_f_z";
++						function = "pwm_f";
++					};
++				};
++
++				pwm-g-pins1 {
++
++					mux {
++						groups = "pwm_g_d";
++						function = "pwm_g";
++					};
++				};
++
++				pwm-g-pins2 {
++
++					mux {
++						groups = "pwm_g_z";
++						function = "pwm_g";
++					};
++				};
++
++				pwm-h-pins {
++
++					mux {
++						groups = "pwm_h";
++						function = "pwm_h";
++					};
++				};
++
++				pwm-i-pins1 {
++
++					mux {
++						groups = "pwm_i_d";
++						function = "pwm_i";
++					};
++				};
++
++				pwm-i-pins2 {
++
++					mux {
++						groups = "pwm_i_h";
++						function = "pwm_i";
++					};
++				};
++
++				pwm-j-pins {
++
++					mux {
++						groups = "pwm_j";
++						function = "pwm_j";
++					};
++				};
++
++				pwm-a-hiz-pins {
++
++					mux {
++						groups = "pwm_a_hiz";
++						function = "pwm_a_hiz";
++					};
++				};
++
++				pwm-b-hiz-pins {
++
++					mux {
++						groups = "pwm_b_hiz";
++						function = "pwm_b_hiz";
++					};
++				};
++
++				pwm-c-hiz-pins {
++
++					mux {
++						groups = "pwm_c_hiz";
++						function = "pwm_c_hiz";
++					};
++				};
++
++				pwm-g-hiz-pins {
++
++					mux {
++						groups = "pwm_g_hiz";
++						function = "pwm_g_hiz";
++					};
++				};
++
++				sdcard-pins {
++					phandle = <0x18>;
++
++					mux {
++						groups = "sdcard_d0_c\0sdcard_d1_c\0sdcard_d2_c\0sdcard_d3_c\0sdcard_clk_c\0sdcard_cmd_c";
++						function = "sdcard";
++						bias-pull-up;
++						drive-strength-microamp = <0xfa0>;
++					};
++				};
++
++				sdcard-clk-gate-pins {
++					phandle = <0x19>;
++
++					mux {
++						groups = "GPIOC_4";
++						function = "gpio_periphs";
++						bias-pull-down;
++						drive-strength-microamp = <0xfa0>;
++					};
++				};
++
++				emmc-pins {
++					phandle = <0x1b>;
++
++					mux-0 {
++						groups = "emmc_nand_d0\0emmc_nand_d1\0emmc_nand_d2\0emmc_nand_d3\0emmc_nand_d4\0emmc_nand_d5\0emmc_nand_d6\0emmc_nand_d7\0emmc_cmd";
++						function = "emmc";
++						bias-pull-up;
++						drive-strength-microamp = <0xfa0>;
++					};
++
++					mux-1 {
++						groups = "emmc_clk";
++						function = "emmc";
++						bias-pull-up;
++						drive-strength-microamp = <0xfa0>;
++					};
++				};
++
++				emmc-ds-pins {
++					phandle = <0x1c>;
++
++					mux {
++						groups = "emmc_nand_ds";
++						function = "emmc";
++						bias-pull-down;
++						drive-strength-microamp = <0xfa0>;
++					};
++				};
++
++				emmc-clk-gate-pins {
++					phandle = <0x1d>;
++
++					mux {
++						groups = "GPIOB_8";
++						function = "gpio_periphs";
++						bias-pull-down;
++						drive-strength-microamp = <0xfa0>;
++					};
++				};
++
++				sdio-pins {
++					phandle = <0x14>;
++
++					mux {
++						groups = "sdio_d0\0sdio_d1\0sdio_d2\0sdio_d3\0sdio_clk\0sdio_cmd";
++						function = "sdio";
++						bias-pull-up;
++						drive-strength-microamp = <0xfa0>;
++					};
++				};
++
++				sdio-clk-gate-pins {
++					phandle = <0x15>;
++
++					mux {
++						groups = "GPIOX_4";
++						function = "gpio_periphs";
++						bias-pull-down;
++						drive-strength-microamp = <0xfa0>;
++					};
++				};
++
++				spicc0-pins_x {
++
++					mux {
++						groups = "spi_a_mosi_x\0spi_a_miso_x\0spi_a_clk_x";
++						function = "spi_a";
++						drive-strength-microamp = <0xbb8>;
++					};
++				};
++
++				spicc0-pins-h {
++
++					mux {
++						groups = "spi_a_mosi_h\0spi_a_miso_h\0spi_a_clk_h";
++						function = "spi_a";
++						drive-strength-microamp = <0xbb8>;
++					};
++				};
++
++				spicc0-pins-z {
++
++					mux {
++						groups = "spi_a_mosi_z\0spi_a_miso_z\0spi_a_clk_z";
++						function = "spi_a";
++						drive-strength-microamp = <0xbb8>;
++					};
++				};
++
++				hdmitx-hpd {
++					phandle = <0x06>;
++
++					mux {
++						groups = "hdmitx_hpd_in";
++						function = "hdmitx";
++						bias-disable;
++					};
++				};
++
++				hdmitx-ddc {
++					phandle = <0x07>;
++
++					mux {
++						groups = "hdmitx_sda\0hdmitx_sck";
++						function = "hdmitx";
++						bias-disable;
++						drive-strength-microamp = <0xfa0>;
++					};
++				};
++
++				a_uart {
++
++					mux {
++						groups = "uart_a_tx\0uart_a_rx\0uart_a_cts\0uart_a_rts";
++						function = "uart_a";
++					};
++				};
++
++				c_uart {
++
++					mux {
++						groups = "uart_c_tx\0uart_c_rx";
++						function = "uart_c";
++					};
++				};
++
++				d_uart1 {
++
++					mux {
++						groups = "uart_d_tx_h\0uart_d_rx_h";
++						function = "uart_d";
++					};
++				};
++
++				d_uart2 {
++
++					mux {
++						groups = "uart_d_tx_z\0uart_d_rx_z";
++						function = "uart_d";
++					};
++				};
++
++				e_uart1 {
++
++					mux {
++						groups = "uart_e_tx_h\0uart_e_rx_h";
++						function = "uart_e";
++					};
++				};
++
++				e_uart2 {
++
++					mux {
++						groups = "uart_e_tx_z11\0uart_e_rx_z12";
++						function = "uart_e";
++					};
++				};
++
++				e_uart3 {
++
++					mux {
++						groups = "uart_e_tx_z8\0uart_e_rx_z9";
++						function = "uart_e";
++					};
++				};
++
++				all_nand_pins {
++
++					mux {
++						groups = "emmc_nand_d0\0emmc_nand_d1\0emmc_nand_d2\0emmc_nand_d3\0emmc_nand_d4\0emmc_nand_d5\0emmc_nand_d6\0emmc_nand_d7\0nand_ce0\0nand_ale\0nand_cle\0nand_wen_clk\0nand_ren_wr";
++						function = "nand";
++						input-enable;
++					};
++				};
++
++				nand_cs {
++
++					mux {
++						groups = "nand_ce0";
++						function = "nand";
++					};
++				};
++
++				sd_to_ao_uart_clr_pins {
++
++					mux {
++						groups = "GPIOD_0\0GPIOD_1";
++						function = "gpio_periphs";
++					};
++				};
++
++				ao_to_sd_uart_pins {
++
++					mux {
++						groups = "uart_b_tx_c\0uart_b_rx_c";
++						function = "uart_b";
++						bias-pull-up;
++						input-enable;
++					};
++				};
++
++				ao_uart_pins {
++					phandle = <0x0f>;
++
++					mux {
++						groups = "uart_b_tx_d\0uart_b_rx_d";
++						function = "uart_b";
++						bias-pull-up;
++						input-enable;
++					};
++				};
++
++				sd_clr_all_pins {
++
++					mux {
++						groups = "GPIOC_0\0GPIOC_1\0GPIOC_2\0GPIOC_3\0GPIOC_5";
++						function = "gpio_periphs";
++						output-high;
++					};
++
++					mux1 {
++						groups = "GPIOC_4";
++						function = "gpio_periphs";
++						output-low;
++					};
++				};
++
++				sd_clr_noall_pins {
++
++					mux {
++						groups = "GPIOC_0\0GPIOC_1\0GPIOC_4\0GPIOC_5";
++						function = "gpio_periphs";
++						output-high;
++					};
++				};
++
++				sd_1bit_pins {
++
++					mux {
++						groups = "sdcard_d0_c\0sdcard_clk_c\0sdcard_cmd_c";
++						function = "sdcard";
++						bias-pull-up;
++						drive-strength-microamp = <0xfa0>;
++					};
++				};
++
++				sd_iso7816_pins {
++
++					mux {
++						groups = "iso7816_clk_h\0iso7816_data_h";
++						function = "iso7816";
++						input-enable;
++						bias-pull-down;
++					};
++				};
++
++				tdm_a {
++
++					mux {
++						groups = "tdm_sclk0\0tdm_fs0\0tdm_d0\0tdm_d1";
++						function = "tdm";
++					};
++				};
++
++				pdmin {
++
++					mux {
++						groups = "pdm_dclk_d\0pdm_din0_d";
++						function = "pdm";
++					};
++				};
++
++				spdifout {
++
++					mux {
++						groups = "spdif_out_h";
++						function = "spdif_out";
++					};
++				};
++
++				spdifout_a_mute {
++
++					mux {
++						groups = "GPIOH_4";
++						function = "gpio_periphs";
++						output-low;
++					};
++				};
++
++				dvb_s_ts0_pins {
++
++					tsin_a {
++						groups = "tsin_a_sop\0tsin_a_valid\0tsin_a_clk\0tsin_a_din0";
++						function = "tsin_a";
++					};
++				};
++
++				hdmitx_hpd {
++
++					mux {
++						groups = "hdmitx_hpd_in";
++						function = "hdmitx";
++						bias-disable;
++					};
++				};
++
++				hdmitx_hpd_gpio {
++
++					mux {
++						groups = "GPIOH_1";
++						function = "gpio_periphs";
++						bias-disable;
++					};
++				};
++
++				hdmitx_ddc {
++
++					mux {
++						groups = "hdmitx_sda\0hdmitx_sck";
++						function = "hdmitx";
++						bias-disable;
++						drive-strength = <0x03>;
++					};
++				};
++
++				dtvdemod_if_agc_pins {
++
++					mux {
++						groups = "dtv_a_if_agc_z6\0dtv_b_if_agc";
++						function = "dtv";
++					};
++				};
++
++				ee_ceca {
++
++					mux {
++						groups = "ao_cec_a";
++						function = "ao_cec_a";
++					};
++				};
++
++				ee_cecb {
++
++					mux {
++						groups = "ao_cec_b";
++						function = "ao_cec_b";
++					};
++				};
++
++				jtag_a_pin {
++
++					mux {
++						groups = "jtag_1_tdi\0jtag_1_tdo\0jtag_1_clk\0jtag_1_tms";
++						function = "jtag_1";
++					};
++				};
++
++				jtag_b_pin {
++
++					mux {
++						groups = "jtag_2_tdi\0jtag_2_tdo\0jtag_2_clk\0jtag_2_tms";
++						function = "jtag_2";
++					};
++				};
++
++				spifc_pins {
++
++					mux {
++						groups = "spif_hold\0spif_mo\0spif_mi\0spif_clk\0spif_wp\0spif_cs";
++						function = "spif";
++						drive-strength-microamp = <0xbb8>;
++					};
++				};
++
++				irblaster_pin {
++
++					mux {
++						groups = "remote_out";
++						function = "remote_out";
++					};
++				};
++			};
++
++			interrupt-controller@4080 {
++				compatible = "amlogic,meson-s4-gpio-intc\0amlogic,meson-gpio-intc";
++				reg = <0x00 0x4080 0x00 0x20>;
++				interrupt-controller;
++				#interrupt-cells = <0x02>;
++				amlogic,channel-interrupts = <0x0a 0x0b 0x0c 0x0d 0x0e 0x0f 0x10 0x11 0x12 0x13 0x14 0x15>;
++			};
++
++			cpu_temp: temperature-sensor@20000 {
++				compatible = "amlogic,s4-cpu-thermal\0amlogic,g12a-thermal\0amlogic,g12a-cpu-thermal";
++				reg = <0x00 0x20000 0x00 0x50>;
++				interrupts = <0x00 0x1e 0x04>;
++				clocks = <0x05 0x45>;
++				#thermal-sensor-cells = <0x00>;
++				amlogic,ao-secure = <0x0c>;
++			};
++
++			mdio-multiplexer@28000 {
++				compatible = "amlogic,g12a-mdio-mux";
++				reg = <0x00 0x28000 0x00 0xa4>;
++				#address-cells = <0x01>;
++				#size-cells = <0x00>;
++				clocks = <0x05 0xab 0x0a 0x03 0x16>;
++				clock-names = "pclk\0clkin0\0clkin1";
++				mdio-parent-bus = <0x0d>;
++
++				mdio@0 {
++					reg = <0x00>;
++					#address-cells = <0x01>;
++					#size-cells = <0x00>;
++				};
++
++				mdio@1 {
++					reg = <0x01>;
++					#address-cells = <0x01>;
++					#size-cells = <0x00>;
++
++					ethernet-phy@8 {
++						compatible = "ethernet-phy-id0180.3301\0ethernet-phy-ieee802.3-c22";
++						interrupts = <0x00 0x4b 0x04>;
++						reg = <0x08>;
++						max-speed = <0x64>;
++						phandle = <0x12>;
++					};
++				};
++			};
++
++			spi@50000 {
++				compatible = "amlogic,meson-g12a-spicc";
++				reg = <0x00 0x50000 0x00 0x44>;
++				interrupts = <0x00 0xb7 0x04>;
++				clocks = <0x05 0xc3 0x05 0x84>;
++				clock-names = "core\0pclk";
++				#address-cells = <0x01>;
++				#size-cells = <0x00>;
++				status = "disabled";
++			};
++
++			pwm@58000 {
++				compatible = "amlogic,meson-s4-pwm";
++				reg = <0x00 0x58000 0x00 0x24>;
++				clocks = <0x05 0x87 0x05 0x8a>;
++				#pwm-cells = <0x03>;
++				status = "disabled";
++			};
++
++			pwm@5a000 {
++				compatible = "amlogic,meson-s4-pwm";
++				reg = <0x00 0x5a000 0x00 0x24>;
++				clocks = <0x05 0x8d 0x05 0x90>;
++				#pwm-cells = <0x03>;
++				status = "disabled";
++			};
++
++			pwm5c000: pwm@5c000 {
++				compatible = "amlogic,meson-s4-pwm";
++				reg = <0x00 0x5c000 0x00 0x24>;
++				clocks = <0x05 0x93 0x05 0x96>;
++				#pwm-cells = <0x03>;
++				status = "okay";
++				pinctrl-0 = <0x0e>;
++				pinctrl-names = "default";
++				phandle = <0x27>;
++			};
++
++			pwm@5e000 {
++				compatible = "amlogic,meson-s4-pwm";
++				reg = <0x00 0x5e000 0x00 0x24>;
++				clocks = <0x05 0x99 0x05 0x9c>;
++				#pwm-cells = <0x03>;
++				status = "disabled";
++			};
++
++			pwm@60000 {
++				compatible = "amlogic,meson-s4-pwm";
++				reg = <0x00 0x60000 0x00 0x24>;
++				clocks = <0x05 0x9f 0x05 0xa2>;
++				#pwm-cells = <0x03>;
++				status = "okay";
++				phandle = <0x2a>;
++			};
++
++			i2c@66000 {
++				compatible = "amlogic,meson-axg-i2c";
++				reg = <0x00 0x66000 0x00 0x20>;
++				interrupts = <0x00 0xa0 0x01>;
++				clocks = <0x05 0xc6>;
++				#address-cells = <0x01>;
++				#size-cells = <0x00>;
++				status = "disabled";
++			};
++
++			i2c@68000 {
++				compatible = "amlogic,meson-axg-i2c";
++				reg = <0x00 0x68000 0x00 0x20>;
++				interrupts = <0x00 0xa1 0x01>;
++				clocks = <0x05 0xc7>;
++				#address-cells = <0x01>;
++				#size-cells = <0x00>;
++				status = "disabled";
++				pinctrl-names = "default";
++				pinctrl-0 = <&i2c1_pins2>;
++				clock-frequency = <0x493e0>;
++
++				tlc59116@60 {
++					compatible = "amlogic,tlc59116_led\0ti,tlc59116";
++					reg = <0x60>;
++					status = "okay";
++
++					led0 {
++						default_colors = <0x00 0x00 0x00>;
++						r_io_number = <0x00>;
++						g_io_number = <0x0a>;
++						b_io_number = <0x05>;
++					};
++
++					led1 {
++						default_colors = <0x00 0x00 0x00>;
++						r_io_number = <0x01>;
++						g_io_number = <0x0b>;
++						b_io_number = <0x06>;
++					};
++
++					led2 {
++						default_colors = <0x00 0x00 0x00>;
++						r_io_number = <0x02>;
++						g_io_number = <0x0c>;
++						b_io_number = <0x07>;
++					};
++
++					led3 {
++						default_colors = <0x00 0x00 0x00>;
++						r_io_number = <0x03>;
++						g_io_number = <0x0d>;
++						b_io_number = <0x08>;
++					};
++				};
++			};
++
++			i2c@6a000 {
++				compatible = "amlogic,meson-axg-i2c";
++				reg = <0x00 0x6a000 0x00 0x20>;
++				interrupts = <0x00 0xa2 0x01>;
++				clocks = <0x05 0xc8>;
++				#address-cells = <0x01>;
++				#size-cells = <0x00>;
++				status = "disabled";
++			};
++
++			i2c@6c000 {
++				compatible = "amlogic,meson-axg-i2c";
++				reg = <0x00 0x6c000 0x00 0x20>;
++				interrupts = <0x00 0xa3 0x01>;
++				clocks = <0x05 0xc9>;
++				#address-cells = <0x01>;
++				#size-cells = <0x00>;
++				status = "disabled";
++			};
++
++			i2c@6e000 {
++				compatible = "amlogic,meson-axg-i2c";
++				reg = <0x00 0x6e000 0x00 0x20>;
++				interrupts = <0x00 0xa4 0x01>;
++				clocks = <0x05 0xca>;
++				#address-cells = <0x01>;
++				#size-cells = <0x00>;
++				status = "disabled";
++			};
++
++			nand-controller@8c800 {
++				compatible = "amlogic,meson-axg-nfc";
++				reg = <0x00 0x8c800 0x00 0x100 0x00 0x8c000 0x00 0x04>;
++				reg-names = "nfc\0emmc";
++				interrupts = <0x00 0xaf 0x01>;
++				clocks = <0x05 0x7b 0x03 0x03>;
++				clock-names = "core\0device";
++				status = "disabled";
++			};
++
++			serial@7a000 {
++				compatible = "amlogic,meson-s4-uart\0amlogic,meson-ao-uart";
++				reg = <0x00 0x7a000 0x00 0x18>;
++				interrupts = <0x00 0xa9 0x01>;
++				clocks = <0x0a 0x05 0xbb 0x0a>;
++				clock-names = "xtal\0pclk\0baud";
++				status = "okay";
++				pinctrl-0 = <0x0f>;
++			};
++
++			phy@3c000 {
++				compatible = "amlogic,s4-usb2-phy";
++				reg = <0x00 0x3c000 0x00 0x2000>;
++				clocks = <0x0a>;
++				clock-names = "xtal";
++				resets = <0x04 0x08>;
++				reset-names = "phy";
++				#phy-cells = <0x00>;
++				phandle = <0x22>;
++			};
++
++			phy@3e000 {
++				compatible = "amlogic,s4-usb2-phy";
++				reg = <0x00 0x3e000 0x00 0x2000>;
++				clocks = <0x0a>;
++				clock-names = "xtal";
++				resets = <0x04 0x09>;
++				reset-names = "phy";
++				#phy-cells = <0x00>;
++				phandle = <0x23>;
++			};
++
++			reset-controller@2000 {
++				compatible = "amlogic,meson-s4-reset";
++				reg = <0x00 0x2000 0x00 0x98>;
++				#reset-cells = <0x01>;
++				phandle = <0x04>;
++			};
++
++			ao-secure@10220 {
++				compatible = "amlogic,s4-ao-secure\0amlogic,meson-gx-ao-secure\0syscon";
++				reg = <0x00 0x10220 0x00 0x140>;
++				amlogic,has-chip-id;
++				phandle = <0x0c>;
++			};
++
++			ir@84040 {
++				compatible = "amlogic,meson-s4-ir";
++				reg = <0x00 0x84040 0x00 0x30>;
++				interrupts = <0x00 0x16 0x01>;
++				status = "disabled";
++			};
++
++			rng@440788 {
++				compatible = "amlogic,meson-s4-rng";
++				reg = <0x00 0x440788 0x00 0x0c>;
++			};
++
++			bus@330000 {
++				compatible = "simple-bus";
++				reg = <0x00 0x330000 0x00 0x1000>;
++				#address-cells = <0x02>;
++				#size-cells = <0x02>;
++				ranges = <0x00 0x00 0x00 0x330000 0x00 0x1000>;
++
++				clock-controller@0 {
++					compatible = "amlogic,sm1-audio-clkc";
++					reg = <0x00 0x00 0x00 0xb4>;
++					#clock-cells = <0x01>;
++					#reset-cells = <0x01>;
++					power-domains = <0x10 0x07>;
++					clocks = <0x05 0xb8 0x03 0x19 0x03 0x1b 0x03 0x1d 0x03 0x1f 0x03 0x11 0x03 0x05 0x03 0x07 0x03 0x09>;
++					clock-names = "pclk\0mst_in0\0mst_in1\0mst_in2\0mst_in3\0mst_in4\0mst_in5\0mst_in6\0mst_in7";
++					resets = <0x04 0x20>;
++					phandle = <0x02>;
++				};
++
++				audio-controller@100 {
++					compatible = "amlogic,sm1-toddr\0amlogic,axg-toddr";
++					reg = <0x00 0x100 0x00 0x2c>;
++					#sound-dai-cells = <0x00>;
++					sound-name-prefix = "TODDR_A";
++					interrupts = <0x00 0x20 0x01>;
++					clocks = <0x02 0x29>;
++					resets = <0x11 0x00 0x02 0x06>;
++					reset-names = "arb\0rst";
++					amlogic,fifo-depth = <0x2000>;
++				};
++
++				audio-controller@140 {
++					compatible = "amlogic,sm1-toddr\0amlogic,axg-toddr";
++					reg = <0x00 0x140 0x00 0x2c>;
++					#sound-dai-cells = <0x00>;
++					sound-name-prefix = "TODDR_B";
++					interrupts = <0x00 0x21 0x01>;
++					clocks = <0x02 0x2a>;
++					resets = <0x11 0x01 0x02 0x07>;
++					reset-names = "arb\0rst";
++					amlogic,fifo-depth = <0x100>;
++				};
++
++				audio-controller@180 {
++					compatible = "amlogic,sm1-toddr\0amlogic,axg-toddr";
++					reg = <0x00 0x180 0x00 0x2c>;
++					#sound-dai-cells = <0x00>;
++					sound-name-prefix = "TODDR_C";
++					interrupts = <0x00 0x22 0x01>;
++					clocks = <0x02 0x2b>;
++					resets = <0x11 0x02 0x02 0x08>;
++					reset-names = "arb\0rst";
++					amlogic,fifo-depth = <0x100>;
++				};
++
++				audio-controller@1c0 {
++					compatible = "amlogic,sm1-frddr\0amlogic,axg-frddr";
++					reg = <0x00 0x1c0 0x00 0x2c>;
++					#sound-dai-cells = <0x00>;
++					sound-name-prefix = "FRDDR_A";
++					interrupts = <0x00 0x24 0x01>;
++					clocks = <0x02 0x26>;
++					resets = <0x11 0x03 0x02 0x09>;
++					reset-names = "arb\0rst";
++					amlogic,fifo-depth = <0x200>;
++				};
++
++				audio-controller@200 {
++					compatible = "amlogic,sm1-frddr\0amlogic,axg-frddr";
++					reg = <0x00 0x200 0x00 0x2c>;
++					#sound-dai-cells = <0x00>;
++					sound-name-prefix = "FRDDR_B";
++					interrupts = <0x00 0x25 0x01>;
++					clocks = <0x02 0x27>;
++					resets = <0x11 0x04 0x02 0x0a>;
++					reset-names = "arb\0rst";
++					amlogic,fifo-depth = <0x100>;
++				};
++
++				audio-controller@240 {
++					compatible = "amlogic,sm1-frddr\0amlogic,axg-frddr";
++					reg = <0x00 0x240 0x00 0x2c>;
++					#sound-dai-cells = <0x00>;
++					sound-name-prefix = "FRDDR_C";
++					interrupts = <0x00 0x26 0x01>;
++					clocks = <0x02 0x28>;
++					resets = <0x11 0x05 0x02 0x0b>;
++					reset-names = "arb\0rst";
++					amlogic,fifo-depth = <0x100>;
++				};
++
++				reset-controller@280 {
++					compatible = "amlogic,meson-sm1-audio-arb";
++					reg = <0x00 0x280 0x00 0x04>;
++					#reset-cells = <0x01>;
++					clocks = <0x02 0x1d>;
++					phandle = <0x11>;
++				};
++
++				audio-controller@300 {
++					compatible = "amlogic,sm1-tdmin\0amlogic,axg-tdmin";
++					reg = <0x00 0x300 0x00 0x40>;
++					sound-name-prefix = "TDMIN_A";
++					resets = <0x02 0x01>;
++					clocks = <0x02 0x1f 0x02 0x7b 0x02 0x74 0x02 0x82 0x02 0x82>;
++					clock-names = "pclk\0sclk\0sclk_sel\0lrclk\0lrclk_sel";
++				};
++
++				audio-controller@340 {
++					compatible = "amlogic,sm1-tdmin\0amlogic,axg-tdmin";
++					reg = <0x00 0x340 0x00 0x40>;
++					sound-name-prefix = "TDMIN_B";
++					resets = <0x02 0x02>;
++					clocks = <0x02 0x20 0x02 0x7c 0x02 0x75 0x02 0x83 0x02 0x83>;
++					clock-names = "pclk\0sclk\0sclk_sel\0lrclk\0lrclk_sel";
++				};
++
++				audio-controller@380 {
++					compatible = "amlogic,sm1-tdmin\0amlogic,axg-tdmin";
++					reg = <0x00 0x380 0x00 0x40>;
++					sound-name-prefix = "TDMIN_C";
++					resets = <0x02 0x03>;
++					clocks = <0x02 0x21 0x02 0x7d 0x02 0x76 0x02 0x84 0x02 0x84>;
++					clock-names = "pclk\0sclk\0sclk_sel\0lrclk\0lrclk_sel";
++				};
++
++				audio-controller@3c0 {
++					compatible = "amlogic,sm1-tdmin\0amlogic,axg-tdmin";
++					reg = <0x00 0x3c0 0x00 0x40>;
++					sound-name-prefix = "TDMIN_LB";
++					resets = <0x02 0x04>;
++					clocks = <0x02 0x22 0x02 0x7e 0x02 0x77 0x02 0x85 0x02 0x85>;
++					clock-names = "pclk\0sclk\0sclk_sel\0lrclk\0lrclk_sel";
++				};
++
++				audio-controller@400 {
++					compatible = "amlogic,g12a-spdifin\0amlogic,axg-spdifin";
++					reg = <0x00 0x400 0x00 0x30>;
++					#sound-dai-cells = <0x00>;
++					sound-name-prefix = "SPDIFIN";
++					interrupts = <0x00 0x97 0x01>;
++					clocks = <0x02 0x2d 0x02 0x38>;
++					clock-names = "pclk\0refclk";
++					resets = <0x02 0x11>;
++				};
++
++				audio-controller@480 {
++					compatible = "amlogic,g12a-spdifout\0amlogic,axg-spdifout";
++					reg = <0x00 0x480 0x00 0x50>;
++					#sound-dai-cells = <0x00>;
++					sound-name-prefix = "SPDIFOUT_A";
++					clocks = <0x02 0x2e 0x02 0x37>;
++					clock-names = "pclk\0mclk";
++					resets = <0x02 0x0f>;
++				};
++
++				audio-controller@500 {
++					compatible = "amlogic,sm1-tdmout";
++					reg = <0x00 0x500 0x00 0x40>;
++					sound-name-prefix = "TDMOUT_A";
++					resets = <0x02 0x0c>;
++					clocks = <0x02 0x23 0x02 0x7f 0x02 0x78 0x02 0x86 0x02 0x86>;
++					clock-names = "pclk\0sclk\0sclk_sel\0lrclk\0lrclk_sel";
++				};
++
++				audio-controller@540 {
++					compatible = "amlogic,sm1-tdmout";
++					reg = <0x00 0x540 0x00 0x40>;
++					sound-name-prefix = "TDMOUT_B";
++					resets = <0x02 0x0d>;
++					clocks = <0x02 0x24 0x02 0x80 0x02 0x79 0x02 0x87 0x02 0x87>;
++					clock-names = "pclk\0sclk\0sclk_sel\0lrclk\0lrclk_sel";
++				};
++
++				audio-controller@580 {
++					compatible = "amlogic,sm1-tdmout";
++					reg = <0x00 0x580 0x00 0x40>;
++					sound-name-prefix = "TDMOUT_C";
++					resets = <0x02 0x0e>;
++					clocks = <0x02 0x25 0x02 0x81 0x02 0x7a 0x02 0x88 0x02 0x88>;
++					clock-names = "pclk\0sclk\0sclk_sel\0lrclk\0lrclk_sel";
++				};
++
++				audio-controller@680 {
++					compatible = "amlogic,g12a-spdifout\0amlogic,axg-spdifout";
++					reg = <0x00 0x680 0x00 0x50>;
++					#sound-dai-cells = <0x00>;
++					sound-name-prefix = "SPDIFOUT_B";
++					clocks = <0x02 0x97 0x02 0x98>;
++					clock-names = "pclk\0mclk";
++					resets = <0x02 0x10>;
++				};
++
++				audio-controller@740 {
++					compatible = "amlogic,s4-tocodec";
++					reg = <0x00 0x740 0x00 0x04>;
++					sound-name-prefix = "TOACODEC";
++					resets = <0x02 0x17>;
++				};
++
++				audio-controller@744 {
++					compatible = "amlogic,sm1-tohdmitx\0amlogic,g12a-tohdmitx";
++					reg = <0x00 0x744 0x00 0x04>;
++					#sound-dai-cells = <0x01>;
++					sound-name-prefix = "TOHDMITX";
++					resets = <0x02 0x18>;
++				};
++
++				audio-controller@840 {
++					compatible = "amlogic,sm1-toddr\0amlogic,axg-toddr";
++					reg = <0x00 0x840 0x00 0x2c>;
++					#sound-dai-cells = <0x00>;
++					sound-name-prefix = "TODDR_D";
++					interrupts = <0x00 0x2d 0x01>;
++					clocks = <0x02 0xab>;
++					resets = <0x11 0x06 0x02 0x21>;
++					reset-names = "arb\0rst";
++					amlogic,fifo-depth = <0x100>;
++				};
++
++				audio-controller@880 {
++					compatible = "amlogic,sm1-frddr\0amlogic,axg-frddr";
++					reg = <0x00 0x880 0x00 0x2c>;
++					#sound-dai-cells = <0x00>;
++					sound-name-prefix = "FRDDR_D";
++					interrupts = <0x00 0x2e 0x01>;
++					clocks = <0x02 0xaa>;
++					resets = <0x11 0x07 0x02 0x20>;
++					reset-names = "arb\0rst";
++					amlogic,fifo-depth = <0x100>;
++				};
++
++				audio-controller@E58 {
++					compatible = "amlogic,s4-tdmout-pad";
++					reg = <0x00 0xe58 0x00 0x28>;
++				};
++			};
++
++			audio-controller@331000 {
++				compatible = "amlogic,sm1-pdm\0amlogic,axg-pdm";
++				reg = <0x00 0x331000 0x00 0x34>;
++				#sound-dai-cells = <0x00>;
++				sound-name-prefix = "PDM";
++				clocks = <0x02 0x1e 0x02 0x39 0x02 0x3a>;
++				clock-names = "pclk\0dclk\0sysclk";
++				resets = <0x02 0x00>;
++				assigned-clocks = <0x02 0x4b 0x02 0x4d>;
++				assigned-clock-parents = <0x03 0x11 0x03 0x11>;
++			};
++
++			audio-controller@1A000 {
++				compatible = "amlogic,t9015";
++				reg = <0x00 0x1a000 0x00 0x14>;
++				#sound-dai-cells = <0x00>;
++				sound-name-prefix = "ACODEC";
++				clocks = <0x05 0xb4>;
++				clock-names = "pclk";
++				resets = <0x04 0x58>;
++			};
++		};
++
++		ethernet@fdc00000 {
++			compatible = "amlogic,meson-axg-dwmac\0snps,dwmac-3.70a\0snps,dwmac";
++			reg = <0x00 0xfdc00000 0x00 0x10000 0x00 0xfe024000 0x00 0x08>;
++			interrupts = <0x00 0x4a 0x04>;
++			interrupt-names = "macirq";
++			power-domains = <0x10 0x05>;
++			clocks = <0x05 0xb9 0x03 0x03 0x03 0x1d>;
++			clock-names = "stmmaceth\0clkin0\0clkin1";
++			rx-fifo-depth = <0x1000>;
++			tx-fifo-depth = <0x800>;
++			status = "okay";
++			phy-handle = <0x12>;
++			phy-mode = "rmii";
++
++			mdio {
++				#address-cells = <0x01>;
++				#size-cells = <0x00>;
++				compatible = "snps,dwmac-mdio";
++				phandle = <0x0d>;
++			};
++		};
++
++/*
++		wifi_pwm_conf: wifi_pwm_conf {
++
++			pwm_channel1_conf {
++				pwms = <&pwm5c000 0x00 0x774d 0x00>;
++				duty-cycle = <0x3ba6>;
++				times = <0x07>;
++			};
++
++			pwm_channel2_conf {
++				pwms = <&pwm5c000 0x02 0x7724 0x00>;
++				duty-cycle = <0x3b92>;
++				times = <0x0a>;
++			};
++		};
++
++		aml_wifi {
++			compatible = "amlogic, aml_wifi";
++			status = "okay";
++			irq_trigger_type = "GPIO_IRQ_LOW";
++			dhd_static_buf;
++			pwm_config = <&wifi_pwm_conf>;
++			interrupt-gpios = <&bank4000 0x37 0x00>;
++			power_on-gpios = <&bank4000 0x36 0x00>;
++		};
++*/
++
++		wifi32k: sdio-32k {
++			compatible = "pwm-clock";
++			#clock-cells = <0x00>;
++			clock-frequency = <0x8000>;
++			pwms = <0x27 0x00 0x7736 0x00>;
++			phandle = <0x28>;
++		};
++
++		sdio_pwrseq: sdio-pwrseq {
++			compatible = "mmc-pwrseq-simple";
++			post-power-on-delay-ms = <200>;
++			power-off-delay-us = <500000>;
++			reset-gpios = <0x1a 0x36 0x01>;
++			clocks = <&wifi32k>;
++			clock-names = "ext_clock";
++		};
++
++		mmc@fe088000 {
++			compatible = "amlogic,meson-axg-mmc";
++			reg = <0x00 0xfe088000 0x00 0x800>,
++				<0x0 0xfe00016c 0x0 0x4>,
++				<0x0 0xfe00400c 0x0 0x4>;
++			interrupts = <0x00 0xb0 0x04>;
++			clocks = <0x05 0xb0 0x0a 0x03 0x03>;
++			clock-names = "core\0clkin0\0clkin1";
++			resets = <0x04 0x98>;
++			cap-sdio-irq;
++			keep-power-in-suspend;
++			status = "okay";
++			bus-width = <0x04>;
++			cap-sd-highspeed;
++			sd-uhs-sdr50;
++			sd-uhs-sdr104;
++			max-frequency = <0xbebc200>;
++			non-removable;
++			disable-wp;
++			no-sd;
++			no-mmc;
++			mmc-pwrseq = <&sdio_pwrseq>;
++			pinctrl-0 = <0x14>;
++			pinctrl-1 = <0x15>;
++			pinctrl-names = "default\0clk-gate";
++			vmmc-supply = <0x16>;
++			vqmmc-supply = <0x17>;
++
++			brcmf: wifi@1 {
++				reg = <0x01>;
++				compatible = "brcm,bcm4329-fmac";
++			};
++		};
++
++		mmc@fe08a000 {
++			compatible = "amlogic,meson-axg-mmc";
++			reg = <0x00 0xfe08a000 0x00 0x800>;
++			interrupts = <0x00 0xb1 0x01>;
++			clocks = <0x05 0xb1 0x05 0x81 0x03 0x03>;
++			clock-names = "core\0clkin0\0clkin1";
++			resets = <0x04 0x99>;
++			status = "okay";
++			pinctrl-0 = <0x18>;
++			pinctrl-1 = <0x19>;
++			pinctrl-names = "default\0clk-gate";
++			bus-width = <0x04>;
++			cap-sd-highspeed;
++			disable-wp;
++			max-frequency = <0x2160ec0>;
++			cd-gpios = <0x1a 0x14 0x01>;
++			vmmc-supply = <0x16>;
++			vqmmc-supply = <0x16>;
++		};
++
++		mmc@fe08c000 {
++			compatible = "amlogic,meson-axg-mmc";
++			reg = <0x00 0xfe08c000 0x00 0x800>;
++			interrupts = <0x00 0xb2 0x01>;
++			clocks = <0x05 0xb2 0x05 0x7b 0x03 0x03>;
++			clock-names = "core\0clkin0\0clkin1";
++			resets = <0x04 0x9a>;
++			no-sdio;
++			no-sd;
++			status = "okay";
++			pinctrl-0 = <0x1b 0x1c>;
++			pinctrl-1 = <0x1d>;
++			pinctrl-names = "default\0clk-gate";
++			bus-width = <0x08>;
++			cap-mmc-highspeed;
++			max-frequency = <0x5f5e100>;
++			non-removable;
++			disable-wp;
++			vmmc-supply = <0x16>;
++			vqmmc-supply = <0x17>;
++			mmc-ddr-1_8v;
++			mmc-hs200-1_8v;
++		};
++
++		gpu@fe400000 {
++			compatible = "amlogic,meson-g12a-mali\0arm,mali-bifrost";
++			reg = <0x00 0xfe400000 0x00 0x40000>;
++			interrupt-parent = <0x01>;
++			interrupts = <0x00 0x92 0x04 0x00 0x91 0x04 0x00 0x90 0x04>;
++			interrupt-names = "job\0mmu\0gpu";
++			clocks = <0x05 0x4c>;
++			clock-names = "gpu_mux";
++			resets = <0x04 0x21 0x04 0x22>;
++			operating-points-v2 = <0x1e>;
++			#cooling-cells = <0x02>;
++		};
++
++		vpu@ff000000 {
++			compatible = "amlogic,meson-s4-vpu";
++			reg = <0x00 0xff000000 0x00 0x40000 0x00 0xfe008000 0x00 0x2000 0x00 0xfe000000 0x00 0x2000 0x00 0xfe00c000 0x00 0x800 0x00 0xfe010000 0x00 0x100>;
++			reg-names = "vpu\0hhi\0clkctrl\0pwrctrl\0sysctrl";
++			interrupts = <0x00 0xc5 0x01>;
++			#address-cells = <0x01>;
++			#size-cells = <0x00>;
++			amlogic,canvas = <0x1f>;
++			power-domains = <0x10 0x02>;
++			clocks = <0x05 0x61 0x05 0x74>;
++			clock-names = "vpu\0vapb";
++			assigned-clocks = <0x05 0x5b 0x05 0x5d 0x05 0x61 0x05 0x6e 0x05 0x70 0x05 0x74>;
++			assigned-clock-parents = <0x05 0x05 0x00 0x05 0x5d 0x05 0x07 0x00 0x05 0x70>;
++			assigned-clock-rates = <0x00 0x27bc86aa 0x00 0x00 0xee6b280 0x00>;
++
++			port@0 {
++				reg = <0x00>;
++
++				endpoint {
++					remote-endpoint = <0x20>;
++					phandle = <0x2b>;
++				};
++			};
++
++			port@1 {
++				reg = <0x01>;
++
++				endpoint {
++					remote-endpoint = <0x21>;
++					phandle = <0x08>;
++				};
++			};
++		};
++
++		usb@fe03a000 {
++			compatible = "amlogic,meson-g12a-usb-ctrl";
++			reg = <0x00 0xfe03a000 0x00 0xa0>;
++			interrupts = <0x00 0x81 0x04>;
++			#address-cells = <0x02>;
++			#size-cells = <0x02>;
++			ranges;
++			clocks = <0x05 0xc5>;
++			resets = <0x04 0x04>;
++			dr_mode = "host";
++			phys = <0x22 0x23>;
++			phy-names = "usb2-phy0\0usb2-phy1";
++			power-domains = <0x10 0x03>;
++			status = "okay";
++
++			usb@fde00000 {
++				compatible = "generic-xhci";
++				status = "okay";
++				reg = <0x00 0xfde00000 0x00 0x100000>;
++				interrupts = <0x00 0x82 0x04>;
++				clocks = <0x05 0xcd>;
++			};
++		};
++	};
++
++	thermal-zones {
++
++		cpu-thermal {
++			polling-delay = <0x3e8>;
++			polling-delay-passive = <0x64>;
++			sustainable-power = <0x488>;
++			thermal-sensors = <&cpu_temp>;
++
++			trips {
++
++				cpu-passive {
++					temperature = <0x14c08>;
++					hysteresis = <0x1388>;
++					type = "passive";
++				};
++
++				cpu-hot {
++					temperature = <0x17318>;
++					hysteresis = <0x1388>;
++					type = "hot";
++					phandle = <0x25>;
++				};
++
++				cpu-critical {
++					temperature = <0x19a28>;
++					hysteresis = <0x3e8>;
++					type = "critical";
++				};
++			};
++
++			cooling-maps {
++
++				cpufreq-cooling_map {
++					trip = <0x25>;
++					cooling-device = <&cpu0 0x00 0x08>;
++					contribution = <0x400>;
++				};
++			};
++		};
++	};
++
++	chosen {
++		#address-cells = <0x02>;
++		#size-cells = <0x02>;
++		ranges;
++		stdout-path = "serial0:921600n8";
++
++		framebuffer-hdmi@3f800000 {
++			compatible = "amlogic,simple-framebuffer\0simple-framebuffer";
++			reg = <0x00 0x3f800000 0x00 0x800000>;
++			amlogic,pipeline = "vpu-hdmi";
++			clocks = <0x05 0x43 0x05 0xcb 0x05 0xd2>;
++			width = <0x780>;
++			height = <0x438>;
++			stride = <0xf00>;
++			format = "r5g6b5";
++			status = "disabled";
++		};
++	};
++
++	aliases {
++		ethernet0 = "/soc/ethernet@fdc00000";
++		mmc0 = "/soc/mmc@fe08a000";
++		mmc1 = "/soc/mmc@fe08c000";
++		serial0 = "/soc/bus@fe000000/serial@7a000";
++	};
++
++	reserved-memory {
++		#address-cells = <0x02>;
++		#size-cells = <0x02>;
++		ranges;
++
++		secmon@5000000 {
++			reg = <0x00 0x5000000 0x00 0x3400000>;
++			no-map;
++		};
++
++		linux,cma {
++			compatible = "shared-dma-pool";
++			reusable;
++			size = <0x00 0x10000000>;
++			alignment = <0x00 0x400000>;
++			linux,cma-default;
++		};
++	};
++
++
++	regulator-main-5v {
++		compatible = "regulator-fixed";
++		regulator-name = "5V";
++		regulator-min-microvolt = <0x4c4b40>;
++		regulator-max-microvolt = <0x4c4b40>;
++		regulator-always-on;
++		phandle = <0x29>;
++	};
++
++	regulator-vddao_3v3 {
++		compatible = "regulator-fixed";
++		regulator-name = "VDDAO_3V3";
++		regulator-min-microvolt = <0x325aa0>;
++		regulator-max-microvolt = <0x325aa0>;
++		vin-supply = <0x29>;
++		regulator-always-on;
++		phandle = <0x16>;
++	};
++
++	regulator-vddio-ao1v8 {
++		compatible = "regulator-fixed";
++		regulator-name = "VDDIO_AO1V8";
++		regulator-min-microvolt = <0x1b7740>;
++		regulator-max-microvolt = <0x1b7740>;
++		vin-supply = <0x16>;
++		regulator-always-on;
++		phandle = <0x17>;
++	};
++
++	regulator-vddcpu {
++		compatible = "pwm-regulator";
++		regulator-name = "VDDCPU";
++		regulator-min-microvolt = <0xa8368>;
++		regulator-max-microvolt = <0x1001a8>;
++		vin-supply = <0x29>;
++		pwms = <0x2a 0x01 0x5dc 0x00>;
++		pwm-dutycycle-range = <0x64 0x00>;
++		regulator-boot-on;
++		regulator-always-on;
++		voltage-table = <0x1001a8 0x00 0xfda98 0x03 0xfb388 0x06 0xf8c78 0x09 0xf6568 0x0c 0xf3e58 0x0e 0xf1748 0x11 0xef038 0x14 0xec928 0x17 0xea218 0x1a 0xe7b08 0x1d 0xe53f8 0x1f 0xe2ce8 0x22 0xe05d8 0x25 0xddec8 0x28 0xdb7b8 0x2b 0xd90a8 0x2d 0xd6998 0x30 0xd4288 0x33 0xd1b78 0x36 0xcf468 0x38 0xccd58 0x3b 0xca648 0x3e 0xc7f38 0x41 0xc5828 0x44 0xc3118 0x46 0xc0a08 0x49 0xbe2f8 0x4c 0xbbbe8 0x4f 0xb94d8 0x51 0xb6dc8 0x54 0xb46b8 0x57 0xb1fa8 0x59 0xaf898 0x5c 0xad188 0x5f 0xaaa78 0x62 0xa8368 0x64>;
++	};
++
++	cvbs-connector {
++		compatible = "composite-video-connector";
++
++		port {
++
++			endpoint {
++				remote-endpoint = <0x2b>;
++				phandle = <0x20>;
++			};
++		};
++	};
++
++	hdmi-connector {
++		compatible = "hdmi-connector";
++		type = "a";
++
++		port {
++
++			endpoint {
++				remote-endpoint = <0x2c>;
++				phandle = <0x09>;
++			};
++		};
++	};
++
++	i2c-display {
++		compatible = "i2c-gpio";
++		sda-gpios = <&bank4000 0x1e 0x00>;
++		scl-gpios = <&bank4000 0x1f 0x00>;
++		i2c-gpio,delay-us = <5>;
++		status = "okay";
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		display@24 {
++				compatible = "fdhisi,fd650", "titanmec,tm1650";
++				reg = <0x24>;
++
++				digits {
++						#address-cells = <1>;
++						#size-cells = <0>;
++						digit@0 {
++								reg = <0>;
++								segments = <0 0>,
++											<0 1>,
++											<0 2>,
++											<0 3>,
++											<0 4>,
++											<0 5>,
++											<0 6>;
++						};
++						digit@1 {
++								reg = <1>;
++								segments = <1 0>,
++											<1 1>,
++											<1 2>,
++											<1 3>,
++											<1 4>,
++											<1 5>,
++											<1 6>;
++						};
++						digit@2 {
++								reg = <2>;
++								segments = <2 0>,
++											<2 1>,
++											<2 2>,
++											<2 3>,
++											<2 4>,
++											<2 5>,
++											<2 6>;
++						};
++						digit@3 {
++								reg = <3>;
++								segments = <3 0>,
++											<3 1>,
++											<3 2>,
++											<3 3>,
++											<3 4>,
++											<3 5>,
++											<3 6>;
++						};
++				};
++
++				leds {
++						#address-cells = <2>;
++						#size-cells = <0>;
++						led@3,7 {
++								reg = <1 7>;
++								function = "colon";
++						};
++				};
++		};
++	};
++
++	gpio-keys-polled {
++		compatible = "gpio-keys-polled";
++		poll-interval = <0x64>;
++
++		button {
++			label = "power";
++			linux,code = <0x74>;
++			gpios = <&bank4000 0x1a 0x01>;
++		};
++	};
++};

@@ -1,0 +1,24 @@
+diff --git a/Documentation/devicetree/bindings/mmc/amlogic,meson-gx-mmc.yaml b/Documentation/devicetree/bindings/mmc/amlogic,meson-gx-mmc.yaml
+index 57646575a..066d49b5a 100644
+--- a/Documentation/devicetree/bindings/mmc/amlogic,meson-gx-mmc.yaml
++++ b/Documentation/devicetree/bindings/mmc/amlogic,meson-gx-mmc.yaml
+@@ -20,6 +20,7 @@ properties:
+   compatible:
+     oneOf:
+       - const: amlogic,meson-axg-mmc
++      - const: amlogic,meson-s4-mm
+       - items:
+           - const: amlogic,meson-gx-mmc
+           - const: amlogic,meson-gxbb-mmc
+diff --git a/Documentation/devicetree/bindings/phy/amlogic,g12a-usb2-phy.yaml b/Documentation/devicetree/bindings/phy/amlogic,g12a-usb2-phy.yaml
+index 1a0c436b8..54058d2e6 100644
+--- a/Documentation/devicetree/bindings/phy/amlogic,g12a-usb2-phy.yaml
++++ b/Documentation/devicetree/bindings/phy/amlogic,g12a-usb2-phy.yaml
+@@ -15,6 +15,7 @@ properties:
+     enum:
+       - amlogic,g12a-usb2-phy
+       - amlogic,a1-usb2-phy
++      - amlogic,s4-usb2-phy
+ 
+   reg:
+     maxItems: 1
