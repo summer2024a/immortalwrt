@@ -9,7 +9,7 @@ include $(INCLUDE_DIR)/target.mk
 
 PKG_NAME:=fortify-headers
 PKG_VERSION:=1.1
-PKG_RELEASE=3
+PKG_RELEASE=4
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/jvoisin/$(PKG_NAME).git
